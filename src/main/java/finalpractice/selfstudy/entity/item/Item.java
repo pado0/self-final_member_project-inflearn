@@ -27,4 +27,5 @@ public class Item {
     @ManyToMany(mappedBy = "items")
     private List<Category> categories = new ArrayList<>();
 
+    // 상속관계 매핑
 }
