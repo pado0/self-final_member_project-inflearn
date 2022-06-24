@@ -60,17 +60,34 @@ public class ItemController {
     public void updateAlbumItem(@RequestBody @Valid ItemPostDto.AlbumDto albumDto,
                                 @PathVariable Long id) {
         // 트랜잭션 안에서 set 수행해야함.
-       itemService.updateAlbum(id, albumDto);
+        itemService.updateAlbum(id, albumDto);
     }
 
+    // todo : 이게 맞나 싶다.. 뜯어넣기... 세 객체를 하나의 리스트로 리턴하는
     @GetMapping("/item")
-    public List<ItemGetDto> getItemList(){
+    public List<ItemGetDto> getItemList() {
 
         List<Album> allAlbum = itemService.findAllAlbum();
-        List<Book> allBook = itemService.findAllBook();
-        List<Movie> allMovie = itemService.findAllMovie();
+        for (Album album : allAlbum) {
+            System.out.println("album = " + album);
+        }
+        List<ItemGetDto> itemGetDtos = new ArrayList<>();
 
-        // 뜯어넣기
+        allAlbum.stream().forEach(a -> itemGetDtos.add(
+                new ItemGetDto(a.getName(), a.getPrice(), a.getStockQuantity(), null,
+                        a.getArtist(), a.getEtc(), null, null, null, null)));
+
+        List<Book> allBook = itemService.findAllBook();
+        allBook.stream().forEach(b -> itemGetDtos.add(
+                new ItemGetDto(b.getName(), b.getPrice(), b.getStockQuantity(), null, null, null, b.getAuthor(), b.getIsbn(), null, null)));
+
+
+        List<Movie> allMovie = itemService.findAllMovie();
+        allMovie.stream().forEach(b -> itemGetDtos.add(
+                new ItemGetDto(b.getName(), b.getPrice(), b.getStockQuantity(), null, null, null, null, null, b.getDirector(), b.getActor())));
+
+
+        return itemGetDtos;
 
     }
 
