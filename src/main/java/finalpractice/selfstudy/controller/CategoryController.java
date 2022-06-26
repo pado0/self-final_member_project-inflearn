@@ -1,5 +1,6 @@
 package finalpractice.selfstudy.controller;
 
+import finalpractice.selfstudy.dto.CategoryGetDto;
 import finalpractice.selfstudy.dto.CategoryPostDto;
 import finalpractice.selfstudy.entity.Category;
 import finalpractice.selfstudy.service.CategoryService;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -33,5 +36,17 @@ public class CategoryController {
     }
 
     // 자기참조, 딸린 item까지 모두 리턴
-    // @GetMapping("/category")
+    @GetMapping("/category")
+    public List<CategoryGetDto> findALlCategory() {
+
+        List<CategoryGetDto> categoryGetDtos = new ArrayList<>();
+        List<Category> categories = categoryService.findAllCategories();
+
+        categories.stream().forEach(x -> categoryGetDtos.add(new CategoryGetDto(
+                x.getName(), x.getItem(), x.getParent(), x.getChild()
+        )));
+
+
+        return categoryGetDtos;
+    }
 }

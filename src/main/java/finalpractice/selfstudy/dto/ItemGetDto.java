@@ -11,7 +11,7 @@ public class ItemGetDto {
     private String name;
     private int price;
     private int stockQuantity;
-    private List<String> category_name;
+    private Long categoryId;
 
     private String artist;
     private String etc;
