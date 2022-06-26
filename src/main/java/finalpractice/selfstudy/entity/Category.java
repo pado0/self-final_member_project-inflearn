@@ -27,8 +27,8 @@ public class Category {
 
     // 자기참조
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_id") // todo: 별도의 외래키 parent_id를 지정하는 이유 https://ocwokocw.tistory.com/135
-    private Long parentCategoryId;
+    @JoinColumn(name = "parent_id") // todo: 별도의 외래키 parent_id를 지정하는 이유? https://ocwokocw.tistory.com/135
+    private Category parent;
 
     // 컬렉션은 필드에서 바로 초기화하는것이 null에서 안
     @OneToMany(mappedBy = "parent")
