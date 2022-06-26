@@ -60,18 +60,35 @@ public class ItemController {
     public void updateAlbumItem(@RequestBody @Valid ItemPostDto.AlbumDto albumDto,
                                 @PathVariable Long id) {
         // 트랜잭션 안에서 set 수행해야함.
-       itemService.updateAlbum(id, albumDto);
+        itemService.updateAlbum(id, albumDto);
     }
 
     @GetMapping("/item")
-    public List<ItemGetDto> getItemList(){
+    public List<ItemGetDto> getItemList() {
 
+        List<ItemGetDto> itemGetDtos = new ArrayList<>();
         List<Album> allAlbum = itemService.findAllAlbum();
         List<Book> allBook = itemService.findAllBook();
         List<Movie> allMovie = itemService.findAllMovie();
 
         // 뜯어넣기
+        allAlbum.stream().forEach(x -> itemGetDtos.add(new ItemGetDto(
+                x.getName(), x.getPrice(), x.getStockQuantity(), null
+                , x.getArtist(), x.getEtc(), null, null, null, null
+        )));
 
+        allBook.stream().forEach(x -> itemGetDtos.add(new ItemGetDto(
+                x.getName(), x.getPrice(), x.getStockQuantity(), null
+                , null, null, x.getAuthor(), x.getIsbn(), null, null
+        )));
+
+        allMovie.stream().forEach(x -> itemGetDtos.add(new ItemGetDto(
+                x.getName(), x.getPrice(), x.getStockQuantity(), null
+                , null, null, null, null, x.getDirector(), x.getActor()
+        )));
+
+
+        return itemGetDtos;
     }
 
 }

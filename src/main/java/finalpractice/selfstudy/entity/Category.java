@@ -18,11 +18,10 @@ public class Category {
 
     private String name;
 
-    @ManyToMany
-    @JoinTable(name = "category_item",
-        joinColumns = @JoinColumn(name = "category_id"),
-        inverseJoinColumns = @JoinColumn(name = "item_id"))
-    private List<Item> items = new ArrayList<>();
+
+    // 하나의 카테고리는 여러개의 아이템을 가질 수 있고, 아이템은 하나의 카테고리밖에 갖지 못한다.
+    @OneToMany(mappedBy = "category")
+    private List<Item> item = new ArrayList<>();
 
     // 자기참조
     @ManyToOne(fetch = FetchType.LAZY)

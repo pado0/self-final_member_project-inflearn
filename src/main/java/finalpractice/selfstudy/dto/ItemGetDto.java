@@ -6,6 +6,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
+@AllArgsConstructor
 public class ItemGetDto {
     private String name;
     private int price;
@@ -20,4 +21,6 @@ public class ItemGetDto {
 
     private String director;
     private String actor;
+
+
 }
