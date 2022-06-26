@@ -14,7 +14,7 @@ public class ItemPostDto {
         private String name;
         private int price;
         private int stockQuantity;
-        private List<String> category_name;
+        private Long categoryId;
         private String artist;
         private String etc;
     }
@@ -24,7 +24,7 @@ public class ItemPostDto {
         private String name;
         private int price;
         private int stockQuantity;
-        private List<String> category_name;
+        private Long categoryId;
         private String author;
         private String isbn;
     }
@@ -34,7 +34,7 @@ public class ItemPostDto {
         private String name;
         private int price;
         private int stockQuantity;
-        private List<String> category_name;
+        private Long categoryId;
         private String director;
         private String actor;
     }
