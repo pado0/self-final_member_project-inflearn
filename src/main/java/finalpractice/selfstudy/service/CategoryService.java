@@ -17,9 +17,22 @@ public class CategoryService {
     private final CategoryRepository categoryRepository;
 
     @Transactional
-    public void joinCategory(Category category){
+    public void joinCategory(Category category, Long parentCategoryId){
         // 카테고리 등록할때 부모카테고리를 선택하게 해야겠다. 자식은 연관관계 편의 메소드로.
         // Item과의 관계는 그냥 다대일이 낫겠다.
+
+        /// child 추가해주기.
+        //category.getParent().addChildCategory(category);
+
+        // 카테고리 아이디로 parent 찾기
+        Optional<Category> parentCategory = categoryRepository.findById(parentCategoryId);
+
+        // parent 세팅해주기, parent의 child 세팅해주기.
+        if (!parentCategory.isEmpty()) {
+            category.setParent(parentCategory.get());
+            parentCategory.get().addChildCategory(category);
+        }
+
 
         categoryRepository.save(category);
     }

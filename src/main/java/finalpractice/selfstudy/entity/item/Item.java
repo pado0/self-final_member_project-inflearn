@@ -1,5 +1,6 @@
 package finalpractice.selfstudy.entity.item;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import finalpractice.selfstudy.entity.Category;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,6 +27,7 @@ public class Item {
 
     @ManyToOne
     @JoinColumn(name = "category_id")
+    @JsonIgnore
     private Category category;
 
     // 상속관계 매핑

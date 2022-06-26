@@ -28,9 +28,11 @@ public class CategoryController {
         category.setName(categoryPostDto.getName());
 
         // todo : null 처리 필요. 현재는 입력된 카테고리 id가 db에 없을 경우 null, 있을 경우 정상 등
-        Optional<Category> findCategory = categoryService.findById(categoryPostDto.getParentCategoryId());
-        findCategory.ifPresent(category::setParent);
-        categoryService.joinCategory(category);
+        //Optional<Category> findCategory = categoryService.findById(categoryPostDto.getParentCategoryId());
+        //findCategory.ifPresent(category::setParent);
+
+        Long parentCategoryId = categoryPostDto.getParentCategoryId();
+        categoryService.joinCategory(category, parentCategoryId);
 
         return "ok";
     }
@@ -47,6 +49,7 @@ public class CategoryController {
         )));
 
 
+        // System.out.println("categories = " + categoryGetDtos.get(0).getParent().getName());
         return categoryGetDtos;
     }
 }
