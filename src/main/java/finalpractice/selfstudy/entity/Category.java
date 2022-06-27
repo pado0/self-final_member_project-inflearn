@@ -32,8 +32,10 @@ public class Category {
 
     // 컬렉션은 필드에서 바로 초기화하는것이 null에서 안
     @OneToMany(mappedBy = "parent")
+    @JsonIgnore
     private List<Category> child = new ArrayList<>();
 
+    @JsonIgnore
     public void addChildCategory(Category child) {
         this.child.add(child);
         child.setParent(this);
